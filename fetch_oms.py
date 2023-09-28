@@ -13,6 +13,10 @@ from impala.dbapi import connect
 import pandas as pd
 from datetime import datetime, timedelta
 import configparser
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
 
 
 
@@ -42,7 +46,37 @@ def get_impala_conn():
     impala_user = config.get('impala_conf', 'impala_user')
     
     return connect(host=impala_host, port=impala_port, user=impala_user)
-    
+
+
+def send_email(subject, message, to_email, from_email, password, smtp_server, smtp_port, attachment=None):
+    ret=True
+    try:
+        # 创建一个带附件的邮件对象
+        msg = MIMEMultipart()
+        msg['Subject'] = subject
+        msg['From'] = from_email
+        msg['To'] = to_email
+
+        # 添加文本内容
+        text = MIMEText(message)
+        msg.attach(text)
+
+        # 添加附件
+        if attachment:
+            part = MIMEApplication(open(attachment, 'rb').read())
+            part.add_header('Content-Disposition', 'attachment', filename=attachment)
+            msg.attach(part)
+
+        # 连接SMTP服务器并发送邮件
+        # server=smtplib.SMTP_SSL("smtp.exmail.qq.com", 465)  
+        server = smtplib.SMTP_SSL(smtp_server, smtp_port)
+        server.login(from_email, password)
+        server.sendmail(from_email, to_email, msg.as_string())
+        server.quit()
+    except Exception:  
+        ret=False
+    return ret
+
 
 
 if __name__ == '__main__':
@@ -238,3 +272,31 @@ if __name__ == '__main__':
     df.to_excel(output_file, index=False)
 
     print(f"查询结果已导出到 {output_file}")
+
+    # 发送email给目标人
+    
+    # 设置邮箱信息
+
+    # 创建一个ConfigParser对象
+    config = configparser.ConfigParser()
+    # 读取INI文件
+    config.read('conf/db.ini')
+    # 获取特定键的值
+    to_email = config.get('oms_email', 'to_email')
+    from_email = config.get('oms_email', 'from_email')
+    password = config.get('oms_email', 'password')
+
+    subject = "OMS 清洗数据提取"
+    message = "黄老板请注意，数据见email中的Excel，注意数据安全，谨慎使用"
+
+    smtp_server = "smtp.exmail.qq.com"
+    smtp_port = 465
+    
+    attachment = f'./output/oms_{yesterday}.xlsx'
+    
+    ret = send_email(subject, message, to_email, from_email, password, smtp_server, smtp_port ,attachment)
+
+    if ret:
+        print("邮件发送成功")
+    else:
+        print("邮件发送失败")

@@ -18,7 +18,7 @@ stored as textfile
 ;
 
 
-
+        
 select `id`,
 `shop_id`,
 `shop_name`,
