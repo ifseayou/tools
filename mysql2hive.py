@@ -135,7 +135,7 @@ if __name__ == '__main__':
     read_file_path = "./conf/mysql_schema.sql"
     write_file_path = "./conf/hive_schema.sql"
 
-        # 打开文件并读取内容
+    # 打开文件并读取内容
     with open(read_file_path, 'r') as file:
         lines = file.readlines()
 
