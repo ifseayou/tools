@@ -42,7 +42,7 @@ def parse_table_name(table_name):
     if match1:
         table_name = match1.group(1)  # 获取匹配到的字符串，并去掉 '`' 符号
         mysql_table_name = table_name
-        table_name ="ods_" + data_zone + '_' + table_name + "_df"
+        table_name ="ods." + data_zone + '_' + table_name + "_df"
     else:
         print("未找到匹配的字符串") 
     return table_name,mysql_table_name
