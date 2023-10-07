@@ -1,20 +1,15 @@
-from bs4 import BeautifulSoup
+import os
 
-# 将HTML内容存储在一个字符串中
-html = """
-<span class="info">Comments:</span> 29
-"""
+# 指定目标目录
+target_directory = '~/work/edw_code_prd/ods/x'
 
-# 使用BeautifulSoup解析HTML
-soup = BeautifulSoup(html, 'html.parser')
+# 将波浪号（~）扩展为用户的家目录
+expanded_directory = os.path.expanduser(target_directory)
 
-# 找到包含"Comments:"的<span>元素
-comments_span = soup.find('span', class_='info', string='Comments:')
-if comments_span:
-    # 获取<span>元素的下一个兄弟元素，即包含数字的文本节点
-    comments_text = comments_span.find_next_sibling(string=True)
-    # 提取文本节点的内容（即数字部分）
-    comments = comments_text.strip()
-    print(f"评论数量: {comments}")
+# 检查目录是否存在
+if not os.path.exists(expanded_directory):
+    # 如果目录不存在，创建它
+    os.makedirs(expanded_directory)
+    print(f'已创建目录：{expanded_directory}')
 else:
-    print("未找到评论数量信息")
+    print(f'目录已存在：{expanded_directory}')

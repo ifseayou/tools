@@ -9,7 +9,7 @@
 from dataclasses import field
 from json.tool import main
 import re
-
+import os
 
 
 ### 类型映射
@@ -35,7 +35,7 @@ def parese_table_comment(table_comment):
 
     return table_comment
         
-def parse_table_name(table_name):
+def parse_table_name(table_name,data_zone):
     
     # 使用正则表达式提取字符串
     match1 = re.search(r'CREATE TABLE `([^`]+)`', table_name)
@@ -47,7 +47,7 @@ def parse_table_name(table_name):
         print("未找到匹配的字符串") 
     return table_name,mysql_table_name
 
-def table_scheme_parse(lines):
+def table_scheme_parse(lines,data_zone):
     
     table_schema = ''
     table_name = ''
@@ -89,17 +89,14 @@ def table_scheme_parse(lines):
             tmp_schema = f"{fields[0]} {field_type} comment '{tmp1}', \n"
             
             # 拼接 dsl_sql 语句
-
             dsl_sql += fields[0]+',\n'
-
             table_schema += tmp_schema 
-
         # 如果包含'ENGINE'，则将行赋值给last_line，并且打印它
         elif 'ENGINE' in line:
             table_comment = line
 
     table_schema += "`etl_time` timestamp comment '数据采集时间' "
-    table_name,mysql_table_name = parse_table_name(table_name)
+    table_name,mysql_table_name = parse_table_name(table_name,data_zone)
     table_comment = parese_table_comment(table_comment)
 
 
@@ -112,7 +109,7 @@ row format delimited fields terminated by '\\001' lines terminated by '\\n'
 stored as textfile
 ;
 """
-    print(dsl_sql)
+    # print(dsl_sql)
 
     dsl_sql = f"""
 select {dsl_sql}
@@ -120,10 +117,24 @@ now() as etl_time
 from {mysql_table_name}
 ;
 """
-    print(dsl_sql)
+    # print(dsl_sql)
+    # print(table_name)
 
-    return table_sign,dsl_sql
+    return table_sign,dsl_sql,table_name
 
+def output_dir(data_zone):
+    # 指定目标目录
+    target_directory = '~/work/edw_code_prd/ods/'+ data_zone
+
+    # 将波浪号（~）扩展为用户的家目录
+    expanded_directory = os.path.expanduser(target_directory)
+
+    # 检查目录是否存在
+    if not os.path.exists(expanded_directory):
+        # 如果目录不存在，创建它
+        os.makedirs(expanded_directory)
+        # print(f'已创建目录：{expanded_directory}')
+    return '/Users/xhl/work/edw_code_prd/ods/' + data_zone
 
 
 if __name__ == '__main__':
@@ -133,25 +144,25 @@ if __name__ == '__main__':
 
     # 文件路径
     read_file_path = "./conf/mysql_schema.sql"
-    write_file_path = "./conf/hive_schema.sql"
-
+    
+    
     # 打开文件并读取内容
     with open(read_file_path, 'r') as file:
         lines = file.readlines()
 
-    table_sign ,dsl_sql = table_scheme_parse(lines)
+    table_sign ,dsl_sql,table_name = table_scheme_parse(lines,data_zone)
 
+    
+    write_file_path = output_dir(data_zone) + '/' +  table_name + '.sql'
+    
     # 打开文件并清空内容，然后写入新字符串
+    
     with open(write_file_path, 'w') as file:
+
         file.write(table_sign)
-
-        
         file.write("""
-
             \n
             \n
-            \n
-        
         """)
     
         file.write(dsl_sql)
