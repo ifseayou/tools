@@ -84,8 +84,7 @@ if __name__ == '__main__':
     
     file_path = '/Users/xhl/work/tools/input/订单数据.xlsx'
     
-    # read_excel_write_excel(file_path)
-    # read_excel(order_nos)
+    read_excel_write_excel(file_path)
 
     to_email,from_email,password,smtp_server,smtp_port = get_email_conn()
     to_email = 'lingcui@ywwl.com'
