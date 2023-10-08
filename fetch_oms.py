@@ -7,7 +7,6 @@
 @Desc    :   None
 '''
 
-
 import os
 from impala.dbapi import connect
 import pandas as pd
@@ -77,6 +76,18 @@ def send_email(subject, message, to_email, from_email, password, smtp_server, sm
         ret=False
     return ret
 
+def get_email_conn():
+    # 创建一个ConfigParser对象
+    config = configparser.ConfigParser()
+    # 读取INI文件
+    config.read('conf/db.ini')
+    # 获取特定键的值
+    to_email = config.get('oms_email', 'to_email')
+    from_email = config.get('oms_email', 'from_email')
+    password = config.get('oms_email', 'password')
+    smtp_server = "smtp.exmail.qq.com"
+    smtp_port = 465
+    return to_email,from_email,password,smtp_server,smtp_port
 
 
 if __name__ == '__main__':
@@ -273,24 +284,14 @@ if __name__ == '__main__':
 
     print(f"查询结果已导出到 {output_file}")
 
-    # 发送email给目标人
-    
-    # 设置邮箱信息
 
-    # 创建一个ConfigParser对象
-    config = configparser.ConfigParser()
-    # 读取INI文件
-    config.read('conf/db.ini')
-    # 获取特定键的值
-    to_email = config.get('oms_email', 'to_email')
-    from_email = config.get('oms_email', 'from_email')
-    password = config.get('oms_email', 'password')
+    # 设置邮箱信息
+    to_email,from_email,password,smtp_server,smtp_port = get_email_conn()
+
 
     subject = "OMS 清洗数据提取"
     message = "黄老板请注意，数据见email中的Excel，注意数据安全，谨慎使用"
 
-    smtp_server = "smtp.exmail.qq.com"
-    smtp_port = 465
     
     attachment = f'./output/oms_{yesterday}.xlsx'
     
