@@ -22,7 +22,7 @@ job.setall('*/1 * * * *')
 # 将crontab写入linux系统配置文件
 # my_user_cron.write()
 
-# from crontab import CronTab
+# from crontab import CronTa
 
 
 # cron = CronTab(user=True)

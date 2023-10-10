@@ -8,6 +8,9 @@
 '''
 
 import os
+import schedule
+import time
+
 from impala.dbapi import connect
 import pandas as pd
 from datetime import datetime, timedelta
@@ -90,7 +93,7 @@ def get_email_conn():
     return to_email,from_email,password,smtp_server,smtp_port
 
 
-if __name__ == '__main__':
+def job():
 
     yesterday = get_yesterday()
 
@@ -301,3 +304,11 @@ if __name__ == '__main__':
         print("邮件发送成功")
     else:
         print("邮件发送失败")
+
+
+if __name__ == '__main__':
+
+    schedule.every().friday.at("08:31").do(job) 
+    while True:
+        schedule.run_pending()   # 运行所有可以运行的任务
+        time.sleep(1)
