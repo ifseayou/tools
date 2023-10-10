@@ -83,7 +83,7 @@ def get_email_conn():
     # 创建一个ConfigParser对象
     config = configparser.ConfigParser()
     # 读取INI文件
-    config.read('conf/db.ini')
+    config.read('../conf/db.ini')
     # 获取特定键的值
     to_email = config.get('oms_email', 'to_email')
     from_email = config.get('oms_email', 'from_email')
@@ -276,7 +276,7 @@ def job():
     conn.close()
 
     # 目标Excel文件夹
-    output_folder = './output'
+    output_folder = '../output'
 
     # 确保输出文件夹存在
     os.makedirs(output_folder, exist_ok=True)
@@ -296,7 +296,7 @@ def job():
     message = "黄老板请注意，数据见email中的Excel，注意数据安全，谨慎使用"
 
     
-    attachment = f'./output/oms_{yesterday}.xlsx'
+    attachment = f'../output/oms_{yesterday}.xlsx'
     
     ret = send_email(subject, message, to_email, from_email, password, smtp_server, smtp_port ,attachment)
 

@@ -94,7 +94,7 @@ if __name__ == '__main__':
     subject = f"莹莹_{yesterday}_客服月度赔付"
     message = "数据见email中的Excel"
     
-    attachment = f'./output/rfd_order_{yesterday}.xlsx'
+    attachment = f'../output/rfd_order_{yesterday}.xlsx'
     
     ret = send_email(subject, message, to_email, from_email, password, smtp_server, smtp_port ,attachment)
 

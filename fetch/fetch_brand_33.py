@@ -77,7 +77,7 @@ group by substr(t1.nn_order_date, 1, 7)
     conn.close()
 
     # 目标Excel文件夹
-    output_folder = './output'
+    output_folder = '../output'
 
     # 确保输出文件夹存在
     os.makedirs(output_folder, exist_ok=True)
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     subject = f"得久_{yesterday}_行业运营品牌基础销售值"
     message = "数据见email中的Excel"
     
-    attachment = f'./output/brand_33_{yesterday}.xlsx'
+    attachment = f'../output/brand_33_{yesterday}.xlsx'
     
     ret = send_email(subject, message, to_email, from_email, password, smtp_server, smtp_port ,attachment)
 
