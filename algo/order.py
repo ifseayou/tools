@@ -7,6 +7,9 @@
 @Desc    :   排序算法
 '''
 
+from random import randint
+
+
 def bubbleSort(arr):
     if arr == None or len(arr) <= 1:
         return
@@ -91,6 +94,45 @@ def merge(arr,L,middle,R):
         arr[L+j] = help[j]
 
 
+def quickSort(arr):
+    if arr == None or len(arr) <= 1:
+        return
+
+    n = len(arr)
+
+    process(arr,0,n - 1)
+
+
+def process(arr,L,R):
+    if L < R : 
+        idx = randint(L,R-1)
+        arr[R] , arr[idx] =   arr[idx] , arr[R]
+
+        # return the equal index scope 
+        p1,p2 = partition(arr,L,R)
+        process(arr,L , p1 -1)
+        process(arr, p2 +1 , R)
+
+def partition(arr,L,R):
+    less = L - 1 
+    more = R 
+    while L < more :
+        if arr[L] < arr[R]:
+            less = less + 1
+            arr[less] , arr[L] =   arr[L] , arr[less]
+            L = L + 1
+
+        elif arr[L] > arr[R]:
+            more =  more -1
+            arr[more] , arr[L] =   arr[L] , arr[more]
+        else:
+            L = L + 1
+    arr[R], arr[more] = arr[more],arr[R]
+    
+    return less + 1 , more
+
+
+
 
 
 if __name__ == '__main__':
@@ -106,7 +148,11 @@ if __name__ == '__main__':
     # insertSort(arr)
 
     # test the merge sort
-    mergeSort(arr)
+    # mergeSort(arr)
+
+    # test the quick sort
+    quickSort(arr)
+
 
 
     for i in arr :

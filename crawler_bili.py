@@ -16,6 +16,7 @@ response = requests.get(url, headers=headers)
 video_links = []
 video_titles = []
 video_views = []
+
 video_favorites = []
 video_divs = ''
 
