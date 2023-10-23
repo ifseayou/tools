@@ -12,6 +12,7 @@ class Node:
         self.val = val
         self.next = next
 
+# 打印一个链表
 def printLinkList(head):
     cur = head
     while cur:
@@ -20,6 +21,7 @@ def printLinkList(head):
         else:
             print(cur.val)
         cur = cur.next
+    print() 
 # 反转链表        
 def reverseLinkList(head):
     pre = None
@@ -48,17 +50,45 @@ def getCycleNode(head):
                 slow = slow.next
             return p
     return None
+
+
+# 合并两个有序链表
+def mergeTwoLists(head1, head2):
+    if head1 == None :
+        return head2    
+    if head2 == None :
+        return head1
+    p1 = head1
+    p2 = head2
+    p = Node(99)
+    head = p
+    while p1 != None and p2 != None:
+        if p1.val < p2.val:
+            p.next = Node(p1.val)
+            p = p.next
+            p1 = p1.next
+        else:
+            p.next = Node(p2.val)
+            p = p.next
+            p2 = p2.next
+    if p1 != None:
+        p.next = p1
+
+    if p2 != None:
+        p.next = p2
     
+    return head.next
+
+
+
 
 if __name__ == '__main__':
-    n1 = Node(1)
-    n2 = Node(2,n1)
-    n3 = Node(3,n2)
-    n4 = Node(4,n3)
-    head = Node(5,n4)
 
-    # printLinkList(n5)
-    n1.next = n2
-    p1 = getCycleNode(head)
-    if p1 != None:
-        print(p1.val)
+    head1 = Node(-1 , Node(0, Node(3)))
+    head2 = Node(4 , Node(6, Node(9)))
+
+    printLinkList(head1)
+    printLinkList(head2)
+    head = mergeTwoLists(head1,head2)
+    printLinkList(head)
+    

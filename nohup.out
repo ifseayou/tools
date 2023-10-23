@@ -1,13 +1,21 @@
-<img src="algo/1.png" width = 100% height = 70% alt="图片名称" align=center style="zoom:50%" />
+if (list1 == null) return list2;
+if (list2 == null) return list1;
+ListNode p1 = list1;
+ListNode p2 = list2;
+ListNode head = new ListNode(99);
+ListNode p = head;
+while (p1 != null && p2 != null) {
+    if (p1.val <= p2.val) {
+        p.next = new ListNode(p1.val);
+        p = p.next;
+        p1 = p1.next;
+    }else {
+        p.next = new ListNode(p2.val);
+        p = p.next;
+        p2 = p2.next;
+    }
+}
+if (p1 != null) p.next = p1;
+if (p2 != null) p.next = p2;
 
-
-
-
-
-
-<p align="center">
-  <img src="./algo/0.webp"  width="90%" alt="Your image description">
-    <br>
-  <span style="color:gray"> 需要掌握的数据结构 </span>
-</p>
-
+return head.next;
