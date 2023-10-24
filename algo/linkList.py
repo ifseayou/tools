@@ -80,15 +80,41 @@ def mergeTwoLists(head1, head2):
     return head.next
 
 
+# 合并两个有序链表
+def removeNthFromEnd(head, n):
+    if head == None:
+         return None
+    p1 = head
+    len = 0
+    while p1 != None:
+        p1 = p1.next
+        len = len + 1
+    
+    x = len + 1 - n 
+    if x <= 0:
+        return head
+    
+    dum = Node(-1)
+    dum.next = head
+    pre = dum 
+    cur = head
+
+    for i in range(1,x) :
+        print("---------",i)
+        cur = cur.next
+        pre = pre.next 
+    pre.next = cur.next
+    cur.next = None       
+    return dum.next
 
 
 if __name__ == '__main__':
 
-    head1 = Node(-1 , Node(0, Node(3)))
-    head2 = Node(4 , Node(6, Node(9)))
+    head1 = Node(1 , Node(2, Node(3,Node(4,Node(5)))))
+    
 
     printLinkList(head1)
-    printLinkList(head2)
-    head = mergeTwoLists(head1,head2)
+
+    head = removeNthFromEnd(head1,5)
     printLinkList(head)
     
