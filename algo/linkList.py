@@ -7,6 +7,9 @@
 @Desc    :   反转链表 &  寻找带环链表的入环节点
 '''
 
+from math import floor
+
+
 class Node:
     def __init__(self,val=0,next=None):
         self.val = val
@@ -107,14 +110,30 @@ def removeNthFromEnd(head, n):
     cur.next = None       
     return dum.next
 
+# 返回链表的中间节点
+def getMiddleNode(head):
+    if head == None:
+         return None
+    p1 = head
+    len = 0
+    while p1 != None:
+        p1 = p1.next
+        len = len + 1
+    
+    x = floor(len / 2) + 1
+    # print(x)
+    p1 = head
+    for i in range(1,x):
+        p1 = p1.next
+    return p1
+
+
 
 if __name__ == '__main__':
-
-    head1 = Node(1 , Node(2, Node(3,Node(4,Node(5)))))
     
-
-    printLinkList(head1)
-
-    head = removeNthFromEnd(head1,5)
-    printLinkList(head)
+    head1 = Node(1 , Node(2, Node(3,Node(4,Node(5,Node(6))))))
     
+    head2 = Node(1)
+
+    node = getMiddleNode(head2)
+    printLinkList(node)
