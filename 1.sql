@@ -1,9 +1,36 @@
-    select sum(case when order_status_name = '已支付' then charge_amt else 0 end)               as charge_amt    -- 充值流水
-         , sum(case when order_status_name = '已支付' then charge_amt * divide_rate else 0 end) as charge_income -- 流水收入
-         , count(distinct user_id)                                                              as user_cnt      -- 用户数量
-    from public.dwd_kudu_short_drama_order_mii
-    where substr(order_created_at, 1, 10) >= '2023-10-01'
-      and substr(order_created_at, 1, 10) <= '2023-10-25'
-      and platform_name in ('常读')
-    --   and optimizer_name in ([DYNAMIC_PARAMS.optimizer_name_list])
-    --   and drama_name in ([DYNAMIC_PARAMS.drama_name_list])
+select  * 
+from app.fna_goods_zhubo_stat_df
+where  goods_id = '21302426217668'
+
+
+
+
+;
+
+
+
+select  * 
+from ods.kudu_goods_bill_review_rt
+where third_item_id = '21302426217668'
+;
+
+
+
+
+select  * 
+from app.fna_goods_zhubo_stat_df
+where  goods_id = '21302426217668'
+
+
+
+ods.kudu_short_drama_dianzhong_rt
+ods.kudu_short_drama_netease_rt
+ods.kudu_short_drama_oceanengine_rt
+ods.kudu_short_drama_peanut_rt
+ods.kudu_short_drama_read_promotion_rt
+ods.kudu_short_drama_read_rt
+ods.kudu_short_drama_tomato_promotion_rt
+ods.kudu_short_drama_tomato_refund_rt
+ods.kudu_short_drama_tomato_rt
+ods.kudu_short_drama_xiaoy_refund_rt
+ods.kudu_short_drama_xiaoy_rt
