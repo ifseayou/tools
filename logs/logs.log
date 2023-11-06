@@ -1,1 +1,33 @@
 /Users/xhl/work/tools/fetch_oms.py:273: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+查询结果已导出到 ./output/oms_2023-10-12.xlsx
+邮件发送成功
+查询结果已导出到 ./output/oms_2023-10-19.xlsx
+邮件发送成功
+Traceback (most recent call last):
+  File "/Users/xhl/opt/anaconda3/envs/py39/lib/python3.9/site-packages/thriftpy2/transport/socket.py", line 98, in open
+    self.sock.connect(addr)
+socket.gaierror: [Errno 8] nodename nor servname provided, or not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/xhl/work/tools/fetch_oms.py", line 313, in <module>
+  File "/Users/xhl/opt/anaconda3/envs/py39/lib/python3.9/site-packages/schedule/__init__.py", line 822, in run_pending
+    default_scheduler.run_pending()
+  File "/Users/xhl/opt/anaconda3/envs/py39/lib/python3.9/site-packages/schedule/__init__.py", line 100, in run_pending
+    self._run_job(job)
+  File "/Users/xhl/opt/anaconda3/envs/py39/lib/python3.9/site-packages/schedule/__init__.py", line 172, in _run_job
+    ret = job.run()
+  File "/Users/xhl/opt/anaconda3/envs/py39/lib/python3.9/site-packages/schedule/__init__.py", line 693, in run
+    ret = self.job_func()
+  File "/Users/xhl/work/tools/fetch_oms.py", line 261, in job
+  File "/Users/xhl/work/tools/fetch_oms.py", line 50, in get_impala_conn
+  File "/Users/xhl/opt/anaconda3/envs/py39/lib/python3.9/site-packages/impala/dbapi.py", line 144, in connect
+    service = hs2.connect(host=host, port=port,
+  File "/Users/xhl/opt/anaconda3/envs/py39/lib/python3.9/site-packages/impala/hiveserver2.py", line 826, in connect
+    transport.open()
+  File "/Users/xhl/opt/anaconda3/envs/py39/lib/python3.9/site-packages/thriftpy2/transport/buffered/__init__.py", line 29, in open
+    return self._trans.open()
+  File "/Users/xhl/opt/anaconda3/envs/py39/lib/python3.9/site-packages/thriftpy2/transport/socket.py", line 105, in open
+    raise TTransportException(
+thriftpy2.transport.base.TTransportException: TTransportException(type=1, message="Could not connect to ('ga.lb.dw.impala.yowant.link', 21050)")

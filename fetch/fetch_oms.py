@@ -41,8 +41,9 @@ def get_impala_conn():
     # 创建一个ConfigParser对象
     config = configparser.ConfigParser()
     # 读取INI文件
-    config.read('conf/db.ini')
+    config.read('../conf/db.ini')
     # 获取特定键的值
+    
     impala_host = config.get('impala_conf', 'impala_host')
     impala_port = int(config.get('impala_conf', 'impala_port'))
     impala_user = config.get('impala_conf', 'impala_user')
@@ -307,8 +308,7 @@ def job():
 
 
 if __name__ == '__main__':
-
-    schedule.every().friday.at("08:31").do(job) 
+    schedule.every().friday.at("10:56").do(job) 
     while True:
         schedule.run_pending()   # 运行所有可以运行的任务
         time.sleep(1)

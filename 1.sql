@@ -1,36 +1,25 @@
-select  * 
-from app.fna_goods_zhubo_stat_df
-where  goods_id = '21302426217668'
-
-
-
-
-;
-
-
-
-select  * 
-from ods.kudu_goods_bill_review_rt
-where third_item_id = '21302426217668'
-;
-
-
-
-
-select  * 
-from app.fna_goods_zhubo_stat_df
-where  goods_id = '21302426217668'
-
-
-
-ods.kudu_short_drama_dianzhong_rt
-ods.kudu_short_drama_netease_rt
-ods.kudu_short_drama_oceanengine_rt
-ods.kudu_short_drama_peanut_rt
-ods.kudu_short_drama_read_promotion_rt
-ods.kudu_short_drama_read_rt
-ods.kudu_short_drama_tomato_promotion_rt
-ods.kudu_short_drama_tomato_refund_rt
-ods.kudu_short_drama_tomato_rt
-ods.kudu_short_drama_xiaoy_refund_rt
-ods.kudu_short_drama_xiaoy_rt
+order_goods_1_0"
+"order_goods_1_1"
+"order_goods_1_2"
+"order_goods_1_3"
+"order_goods_1_4"
+"order_goods_1_5"
+"order_goods_1_6"
+"order_goods_1_7"
+"order_goods_2_0"
+"order_goods_2_1"
+"order_goods_2_2"
+"order_goods_2_3"
+"order_goods_2_4"
+"order_goods_2_5"
+"order_goods_2_6"
+"order_goods_2_7"
+"order_goods_100_0"
+"order_goods_5_0"
+"order_goods_5_1"
+"order_goods_5_2"
+"order_goods_5_3"
+"order_goods_5_4"
+"order_goods_5_5"
+"order_goods_5_6"
+"order_goods_5_7"

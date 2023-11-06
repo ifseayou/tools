@@ -71,16 +71,18 @@ def table_scheme_parse(lines,data_zone):
             found_table = True
 
         # 如果已经找到表的定义，并且不包含PRIMARY KEY，则将行添加到 table_schema  中
-        elif found_table and 'PRIMARY KEY' not in line and 'ENGINE' not in line :
+        elif found_table and 'PRIMARY KEY' not in line and 'ENGINE' not in line and "KEY" not in line and "USING" not in line:
             
             # 提取注释信息
-            match0 = re.search(r"'([^']*)'", line)
+            # match0 = re.search(r"'([^']*)'", line)
+            match0 = re.search(r"comment|COMMENT\s'(.*?)',", line)
             tmp1 = ''
             if match0:
                 tmp1 = match0.group(1)
             
             # 使用空格拆分字符串并保留前两个字段
             fields = line.split(None, 2)[:2]
+            # print(fields)
 
             # 转化数据类型
             field_type =  field_transfer(fields[1])

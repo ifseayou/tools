@@ -10,6 +10,9 @@
 import pandas as pd
 import os
 from fetch_oms import get_impala_conn,get_yesterday,get_email_conn,send_email
+import warnings
+warnings.filterwarnings("ignore")
+
 
 def read_excel_write_excel(file_path):
     df = pd.read_excel(file_path,sheet_name='Sheet1')
@@ -68,7 +71,7 @@ where order_no in ({order_nos})
     conn.close()
 
     # 目标Excel文件夹
-    output_folder = './output'
+    output_folder = '/Users/xhl/work/tools/fetch/output'
 
     # 确保输出文件夹存在
     os.makedirs(output_folder, exist_ok=True)
@@ -94,7 +97,7 @@ if __name__ == '__main__':
     subject = f"莹莹_{yesterday}_客服月度赔付"
     message = "数据见email中的Excel"
     
-    attachment = f'../output/rfd_order_{yesterday}.xlsx'
+    attachment = f'/Users/xhl/work/tools/fetch/output/rfd_order_{yesterday}.xlsx'
     
     ret = send_email(subject, message, to_email, from_email, password, smtp_server, smtp_port ,attachment)
 

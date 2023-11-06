@@ -10,7 +10,11 @@
 import datetime
 import pandas as pd
 import os
+import warnings
+
 from fetch_oms import get_impala_conn,get_yesterday,get_email_conn,send_email
+
+warnings.filterwarnings("ignore")
 
 def query_download():
 
