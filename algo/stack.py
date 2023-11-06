@@ -25,6 +25,51 @@ def isParentheses(s):
                 return False
     return len(stack) ==0
 
+
+# 最小栈
+class MinStack(object):
+    def __init__(self):
+        self.dataStack = []
+        self.minStack = []
+
+    def push(self,num): # 入栈
+        self.dataStack.append(num)
+        if not self.minStack :
+            self.minStack.append(num)
+        else:
+            if self.minStack[-1] > num:
+                self.minStack.append(num)
+            else:
+                self.minStack.append(self.minStack[-1])
+
+    def pop(self): # 出栈
+        if self.dataStack:
+            self.minStack.pop()
+            return self.dataStack.pop() 
+
+    def top(self): # 查看栈顶元素
+        if self.dataStack:
+            self.dataStack[-1]
+        
+
+    def getMin(self): # 查看栈内最小元素
+        if self.minStack:
+            return self.minStack[-1]
+
+
+
+
 if __name__ == '__main__':
-    res = isParentheses('[]{()}()')
-    print(0.3 + 0.6) # 0.8999999999999999
+    minStack = MinStack()
+    minStack.push(1)
+    minStack.push(2)
+    minStack.push(4)
+    minStack.push(3)
+    minStack.push(-1)
+
+    print(minStack.getMin())
+    minStack.pop()
+    print(minStack.getMin())
+    print(minStack.pop())
+
+
