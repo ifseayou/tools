@@ -8,6 +8,9 @@
 '''
 
 #判断  '[]{()}()' 是否是正常的表达式
+import re
+
+
 def isParentheses(s):
     stack = []
     for i in s:
@@ -59,17 +62,25 @@ class MinStack(object):
 
 
 
+# backspace问题
+
+def backspaceCompare(s1,s2):
+    def backspace(s):
+        stack = []
+        for c in s:
+            if c != '#':
+                stack.append(c)
+            elif stack: # stack is not empty
+                stack.pop()
+        print(stack)
+        return stack    
+        
+    return backspace(s1) == backspace(s2)
+ 
+
 if __name__ == '__main__':
-    minStack = MinStack()
-    minStack.push(1)
-    minStack.push(2)
-    minStack.push(4)
-    minStack.push(3)
-    minStack.push(-1)
-
-    print(minStack.getMin())
-    minStack.pop()
-    print(minStack.getMin())
-    print(minStack.pop())
-
+    a = "124###a#ab"
+    b = "124###ab#b"
+    print(backspaceCompare(a,b))
+    
 
